@@ -1,4 +1,3 @@
-import java.util.*;
 public class ZeroOneKnapsack {
 	static int max(int a, int b) {
 		return (a > b) ? a : b;
@@ -19,10 +18,10 @@ public class ZeroOneKnapsack {
 	static int knapsackMemoization(int[] wt, int[] val, int W, int N) {
 		if (W == 0 || N == 0)
 			return 0;
-		
+
 		if (t[W][N] != -1)
 			return t[W][N];
-		
+
 		if (wt[N - 1] <= W) {
 			return t[W][N] = max(val[N - 1] + knapsackMemoization(wt, val, W - wt[N - 1], N - 1),
 					knapsackMemoization(wt, val, W, N - 1));
@@ -31,8 +30,8 @@ public class ZeroOneKnapsack {
 	}
 
 	public static void main(String[] args) {
-		int[] wt = { 1, 3, 4,1,1,1,1, };
-		int[] val = { 1, 8, 3,1,1,1,1 };
+		int[] wt = { 1, 3, 4, 1, 1, 1, 1, };
+		int[] val = { 1, 8, 3, 1, 1, 1, 1 };
 		int W = 7;
 
 		for (int i = 0; i < 100; i++) {
