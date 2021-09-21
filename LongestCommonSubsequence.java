@@ -52,6 +52,44 @@ public class LongestCommonSubsequence {
         return dp[idx1][idx2];
     }
 
+    static void printLongestCommonSubsequenceMemoization(String str1, String str2, int idx1, int idx2) {
+        System.out.println("Print Longest Common Subsequence using array Memoization");
+        int i = idx1, j = idx2;
+        while (i > 0 && j > 0) {
+            if (str1.charAt(i - 1) == str2.charAt(j - 1)) {
+                System.out.print(str2.charAt(j - 1));
+                i--;
+                j--;
+            } else {
+                if (dp[i][j - 1] > dp[i - 1][j]) {
+                    j--;
+                } else {
+                    i--;
+                }
+            }
+        }
+        System.out.println();
+    }
+
+    static void printLongestCommonSubsequenceDP(String str1, String str2, int idx1, int idx2) {
+        System.out.println("Print Longest Common Subsequence using array DP");
+        int i = idx1, j = idx2;
+        while (i > 0 && j > 0) {
+            if (str1.charAt(i - 1) == str2.charAt(j - 1)) {
+                System.out.print(str2.charAt(j - 1));
+                i--;
+                j--;
+            } else {
+                if (dp[i][j - 1] > dp[i - 1][j]) {
+                    j--;
+                } else {
+                    i--;
+                }
+            }
+        }
+        System.out.println();
+    }
+
     public static void main(String[] args) {
         String str1 = "abcdef";
         String str2 = "abef";
@@ -65,5 +103,8 @@ public class LongestCommonSubsequence {
         System.out.println("Longest Common Subsequence using Memoization:\t"
                 + longestCommonSubsequenceMemoization(str1, str2, 6, 4));
         System.out.println("Longest Common Subsequence using DP:\t" + longestCommonSubsequenceDP(str1, str2, 6, 4));
+
+        printLongestCommonSubsequenceMemoization(str1, str2, 6, 4);
+        printLongestCommonSubsequenceDP(str1, str2, 6, 4);
     }
 }
