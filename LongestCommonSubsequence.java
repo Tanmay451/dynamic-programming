@@ -90,6 +90,16 @@ public class LongestCommonSubsequence {
         System.out.println();
     }
 
+    static int smallestCommonSupersequence(String str1, String str2, int idx1, int idx2) {
+        int lcs = longestCommonSubsequenceDP(str1, str2, idx1, idx2);
+        return idx1 + idx2 - lcs;
+    }
+
+    static int numberOfInsertionAndDeletionToConvert(String str1, String str2, int idx1, int idx2) {
+        int lcs = longestCommonSubsequenceDP(str1, str2, idx1, idx2);
+        return idx1 + idx2 - (2 * lcs);
+    }
+
     public static void main(String[] args) {
         String str1 = "abcdef";
         String str2 = "abef";
@@ -106,5 +116,9 @@ public class LongestCommonSubsequence {
 
         printLongestCommonSubsequenceMemoization(str1, str2, 6, 4);
         printLongestCommonSubsequenceDP(str1, str2, 6, 4);
+
+        System.out.println("Smallest Common Supersequence:\t" + smallestCommonSupersequence(str1, str2, 6, 4));
+        System.out.println("Number Of Insertion And Deletion To Convert:\t"
+                + numberOfInsertionAndDeletionToConvert(str1, str2, 6, 4));
     }
 }
