@@ -90,19 +90,51 @@ public class LongestCommonSubsequence {
         System.out.println();
     }
 
+    static void printShortestCommonSupersequenceDP(String str1, String str2, int idx1, int idx2) {
+        System.out.println("Print Shortest Common Supersequence using array DP");
+
+        int i = idx1, j = idx2;
+
+        while (i > 0 && j > 0) {
+            if (str1.charAt(i - 1) == str2.charAt(j - 1)) {
+                System.out.print(str2.charAt(j - 1));
+                i--;
+                j--;
+            } else {
+                if (dp[i][j - 1] > dp[i - 1][j]) {
+                    System.out.print(str2.charAt(j - 1));
+                    j--;
+                } else {
+                    System.out.print(str1.charAt(i - 1));
+                    i--;
+                }
+            }
+        }
+        while (i > 0) {
+            System.out.print(str1.charAt(i - 1));
+            i--;
+        }
+        while (j > 0) {
+            System.out.print(str2.charAt(j - 1));
+            j--;
+        }
+
+        System.out.println();
+    }
+
     static int smallestCommonSupersequence(String str1, String str2, int idx1, int idx2) {
         int lcs = longestCommonSubsequenceDP(str1, str2, idx1, idx2);
         return idx1 + idx2 - lcs;
     }
 
-    static int numberOfInsertionAndDeletionToConvert(String str1, String str2, int idx1, int idx2) {
+    static int MinimumNumberOfInsertionAndDeletionToConvert(String str1, String str2, int idx1, int idx2) {
         int lcs = longestCommonSubsequenceDP(str1, str2, idx1, idx2);
         return idx1 + idx2 - (2 * lcs);
     }
 
     public static void main(String[] args) {
         String str1 = "abcdef";
-        String str2 = "abef";
+        String str2 = "eage";
         System.out.println("Longest Common Subsequence:\t" + longestCommonSubsequence(str1, str2, 6, 4));
 
         for (int i = 0; i < 100; i++) {
@@ -118,7 +150,8 @@ public class LongestCommonSubsequence {
         printLongestCommonSubsequenceDP(str1, str2, 6, 4);
 
         System.out.println("Smallest Common Supersequence:\t" + smallestCommonSupersequence(str1, str2, 6, 4));
-        System.out.println("Number Of Insertion And Deletion To Convert:\t"
-                + numberOfInsertionAndDeletionToConvert(str1, str2, 6, 4));
+        System.out.println("Minimum Number Of Insertion And Deletion To Convert:\t"
+                + MinimumNumberOfInsertionAndDeletionToConvert(str1, str2, 6, 4));
+        printShortestCommonSupersequenceDP(str1, str2, 6, 4);
     }
 }
