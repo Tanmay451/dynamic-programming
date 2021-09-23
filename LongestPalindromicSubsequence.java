@@ -73,16 +73,22 @@ public class LongestPalindromicSubsequence {
         return longestCommonSubsequenceDP(str, reverseString(str), idx, idx);
     }
 
-    static int MinimumNumberOfDeletionToConvert(String str, int idx) {
+    static int MinimumNumberOfDeletionToMakePalindrone(String str, int idx) {
+        return idx - longestCommonSubsequenceDP(str, reverseString(str), idx, idx);
+    }
+
+    static int MinimumNumberOfInsertionToMakePalindrone(String str, int idx) {
         return idx - longestCommonSubsequenceDP(str, reverseString(str), idx, idx);
     }
 
     public static void main(String[] args) {
         String str = "aabebcdd";
         System.out.println("Longest Palindromic Subsequence:\t" + longestPalindromicSubsequence(str, 8));
-        System.out.println(
-                "Minimum Number Of Deletion To Convert into palindrome:\t" + MinimumNumberOfDeletionToConvert(str, 8));
+        System.out.println("Minimum Number Of Deletion To Convert into palindrome:\t"
+                + MinimumNumberOfDeletionToMakePalindrone(str, 8));
         System.out.println("Longest Repeating Subsequence:\t" + longestRepeatingSubsequence(str, 8));
         System.out.println("Longest Repeating Subsequence using DP:\t" + longestRepeatingSubsequenceDP(str, 8));
+        System.out.println("Minimum Number Of Insertion To Convert into palindrome:\t"
+                + MinimumNumberOfInsertionToMakePalindrone(str, 8));
     }
 }
