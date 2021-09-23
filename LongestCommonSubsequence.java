@@ -2,6 +2,7 @@ public class LongestCommonSubsequence {
 
     static int[][] m = new int[100][100];
     static int[][] dp = new int[100][100];
+    static boolean[][] dpBool = new boolean[100][100];
 
     static int max(int a, int b) {
         return (a > b) ? a : b;
@@ -15,6 +16,34 @@ public class LongestCommonSubsequence {
 
         return max(longestCommonSubsequence(str1, str2, idx1 - 1, idx2),
                 longestCommonSubsequence(str1, str2, idx1, idx2 - 1));
+    }
+
+    static boolean sequencePatterMatching(String str1, String str2, int idx1, int idx2) {
+        if (idx1 == 0)
+            return true;
+        if (idx2 == 0)
+            return false;
+        if (str1.charAt(idx1 - 1) == str2.charAt(idx2 - 1))
+            return sequencePatterMatching(str1, str2, idx1 - 1, idx2 - 1);
+        return sequencePatterMatching(str1, str2, idx1, idx2 - 1);
+    }
+
+    static boolean sequencePatterMatchingDP(String str1, String str2, int idx1, int idx2) {
+        for (int i = 0; i <= idx1; i++)
+            dpBool[i][0] = false;
+        for (int j = 0; j <= idx2; j++)
+            dpBool[0][j] = true;
+
+        for (int i = 1; i <= idx1; i++) {
+            for (int j = 1; j <= idx2; j++) {
+                if (str1.charAt(i - 1) == str2.charAt(j - 1)) {
+                    dpBool[i][j] = dpBool[i - 1][j];
+                } else {
+                    dpBool[i][j] = dpBool[i][j - 1];
+                }
+            }
+        }
+        return dpBool[idx1][idx2];
     }
 
     static int longestCommonSubsequenceMemoization(String str1, String str2, int idx1, int idx2) {
@@ -35,7 +64,7 @@ public class LongestCommonSubsequence {
         for (int i = 0; i <= idx1; i++) {
             dp[i][0] = 0;
         }
-        for (int j = 0; j <= idx1; j++) {
+        for (int j = 0; j <= idx2; j++) {
             dp[0][j] = 0;
         }
 
@@ -133,9 +162,10 @@ public class LongestCommonSubsequence {
     }
 
     public static void main(String[] args) {
-        String str1 = "abcdef";
-        String str2 = "eage";
-        System.out.println("Longest Common Subsequence:\t" + longestCommonSubsequence(str1, str2, 6, 4));
+        String str1 = "abef";
+        String str2 = "abcdef";
+
+        System.out.println("Longest Common Subsequence:\t" + longestCommonSubsequence(str1, str2, 4, 6));
 
         for (int i = 0; i < 100; i++) {
             for (int j = 0; j < 100; j++) {
@@ -143,15 +173,17 @@ public class LongestCommonSubsequence {
             }
         }
         System.out.println("Longest Common Subsequence using Memoization:\t"
-                + longestCommonSubsequenceMemoization(str1, str2, 6, 4));
-        System.out.println("Longest Common Subsequence using DP:\t" + longestCommonSubsequenceDP(str1, str2, 6, 4));
+                + longestCommonSubsequenceMemoization(str1, str2, 4, 6));
+        System.out.println("Longest Common Subsequence using DP:\t" + longestCommonSubsequenceDP(str1, str2, 4, 6));
 
-        printLongestCommonSubsequenceMemoization(str1, str2, 6, 4);
-        printLongestCommonSubsequenceDP(str1, str2, 6, 4);
+        printLongestCommonSubsequenceMemoization(str1, str2, 4, 6);
+        printLongestCommonSubsequenceDP(str1, str2, 4, 6);
 
-        System.out.println("Smallest Common Supersequence:\t" + smallestCommonSupersequence(str1, str2, 6, 4));
+        System.out.println("Smallest Common Supersequence:\t" + smallestCommonSupersequence(str1, str2, 4, 6));
         System.out.println("Minimum Number Of Insertion And Deletion To Convert:\t"
-                + MinimumNumberOfInsertionAndDeletionToConvert(str1, str2, 6, 4));
-        printShortestCommonSupersequenceDP(str1, str2, 6, 4);
+                + MinimumNumberOfInsertionAndDeletionToConvert(str1, str2, 4, 6));
+        printShortestCommonSupersequenceDP(str1, str2, 4, 6);
+        System.out.println("Sequence Patter Matching:\t" + sequencePatterMatching(str1, str2, 4, 6));
+        System.out.println("Sequence Patter Matching using DP:\t" + sequencePatterMatchingDP(str1, str2, 4, 6));
     }
 }
